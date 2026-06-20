@@ -34,10 +34,10 @@ export default function Header() {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     };
   }, [mobileMenuOpen]);
 
@@ -179,20 +179,53 @@ export default function Header() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 top-[64px] bg-[#000000]/98 z-40 md:hidden flex flex-col justify-between p-8"
+            className="fixed inset-0 z-[100] flex flex-col bg-black md:hidden"
+            style={{ height: "100dvh" }}
           >
-            <div className="flex flex-col gap-6 mt-8">
-              {NAV_ITEMS.map((item, idx) => {
+            {/* Top Bar: Logo & Close Button */}
+            <div className="flex items-center justify-between px-6 py-5 border-b border-[#F5E000]/10">
+              <a href="#home" onClick={(e) => handleNavClick(e, "#home")} className="flex items-center">
+                <div className="relative h-11 w-11 flex items-center justify-center">
+                  <Image
+                    src="/logo.png"
+                    alt="K2 Vizag Logo"
+                    width={44}
+                    height={44}
+                    priority
+                    className="object-contain"
+                  />
+                </div>
+              </a>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 text-[#FFFFFF] hover:text-[#F5E000] transition-colors cursor-pointer"
+                aria-label="Close navigation menu"
+              >
+                <X className="w-7 h-7" />
+              </button>
+            </div>
+
+            {/* Nav Links */}
+            <motion.nav
+              variants={{
+                open: { transition: { staggerChildren: 0.06 } },
+              }}
+              initial="closed"
+              animate="open"
+              className="flex flex-col gap-6 px-6 mt-8"
+            >
+              {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.href.replace("#", "");
                 return (
                   <motion.a
                     key={item.name}
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.06 }}
-                    className={`text-2xl uppercase font-display tracking-widest ${
+                    variants={{
+                      closed: { opacity: 0, y: 16 },
+                      open: { opacity: 1, y: 0 },
+                    }}
+                    className={`text-3xl uppercase font-display tracking-widest ${
                       isActive ? "text-[#F5E000]" : "text-[#FFFFFF]"
                     } hover:text-[#F5E000] transition-colors`}
                   >
@@ -200,9 +233,10 @@ export default function Header() {
                   </motion.a>
                 );
               })}
-            </div>
+            </motion.nav>
 
-            <div className="pb-16 flex flex-col gap-4">
+            {/* WhatsApp CTA at bottom */}
+            <div className="mt-auto px-6 pb-12 flex flex-col gap-4">
               <p className="text-[#FFFFFF]/60 text-xs font-mono tracking-widest uppercase text-center">
                 EST. TRUSTED IN VIZAG
               </p>
