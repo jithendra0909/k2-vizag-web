@@ -73,6 +73,8 @@ export default function FloatingWhatsApp() {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.93 }}
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
             onMouseEnter={() => {
               if (window.innerWidth >= 768) setShowTooltip(true);
@@ -81,7 +83,7 @@ export default function FloatingWhatsApp() {
               if (window.innerWidth >= 768) setShowTooltip(false);
             }}
             aria-label="Chat with K2 Vizag on WhatsApp"
-            className="relative flex items-center justify-center w-14 h-14 bg-[#25D366] rounded-full shadow-[0_4px_24px_rgba(37,211,102,0.4)] text-[#FFFFFF] cursor-pointer outline-none hover:opacity-90 transition-opacity focus-visible:ring-2 focus-visible:ring-[#F5E000] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="relative flex items-center justify-center w-14 h-14 bg-[#25D366] rounded-full shadow-[0_4px_24px_rgba(37,211,102,0.4)] text-[#FFFFFF] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#F5E000] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             {/* Pulse Ring Behind */}
             <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-40 animate-[pulseRing_2s_infinite_ease-out] pointer-events-none" />

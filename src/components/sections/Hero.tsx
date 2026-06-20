@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { MessageSquare, Star, ArrowDown, Fingerprint, CreditCard, Image as ImageIcon, Coffee } from "lucide-react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
@@ -15,14 +15,19 @@ const FLOATING_CHIPS_DESKTOP = [
 ];
 
 const FLOATING_CHIPS_MOBILE = [
-  { name: "Aadhar", icon: Fingerprint, delay: 0.1, x: "-90px", y: "-95px", speed: 4 },
-  { name: "PAN Card", icon: CreditCard, delay: 0.3, x: "85px", y: "-100px", speed: 5 },
-  { name: "Frames", icon: ImageIcon, delay: 0.2, x: "-95px", y: "85px", speed: 4.5 },
-  { name: "Mugs", icon: Coffee, delay: 0.4, x: "80px", y: "90px", speed: 5.5 }
+  { name: "Aadhar", icon: Fingerprint, delay: 0.1, x: "-75px", y: "-80px", speed: 4 },
+  { name: "PAN Card", icon: CreditCard, delay: 0.3, x: "65px", y: "-85px", speed: 5 },
+  { name: "Frames", icon: ImageIcon, delay: 0.2, x: "-80px", y: "70px", speed: 4.5 },
+  { name: "Mugs", icon: Coffee, delay: 0.4, x: "70px", y: "75px", speed: 5.5 }
 ];
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [hasPointer, setHasPointer] = useState(false);
+
+  useEffect(() => {
+    setHasPointer(window.matchMedia("(pointer: fine)").matches);
+  }, []);
   
   // Scroll transformations
   const { scrollYProgress } = useScroll({
@@ -44,12 +49,12 @@ export default function Hero() {
   const springY = useSpring(mouseY, { stiffness: 80, damping: 20 });
 
   // Map spring displacements at different depths
-  const pDepth1X = useTransform(springX, (v) => v * 0.08);
-  const pDepth1Y = useTransform(springY, (v) => v * 0.08);
-  const pDepth2X = useTransform(springX, (v) => v * -0.04);
-  const pDepth2Y = useTransform(springY, (v) => v * -0.04);
-  const pDepth3X = useTransform(springX, (v) => v * 0.03);
-  const pDepth3Y = useTransform(springY, (v) => v * 0.03);
+  const pDepth1X = useTransform(springX, (v) => hasPointer ? v * 0.08 : 0);
+  const pDepth1Y = useTransform(springY, (v) => hasPointer ? v * 0.08 : 0);
+  const pDepth2X = useTransform(springX, (v) => hasPointer ? v * -0.04 : 0);
+  const pDepth2Y = useTransform(springY, (v) => hasPointer ? v * -0.04 : 0);
+  const pDepth3X = useTransform(springX, (v) => hasPointer ? v * 0.03 : 0);
+  const pDepth3Y = useTransform(springY, (v) => hasPointer ? v * 0.03 : 0);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
@@ -82,14 +87,16 @@ export default function Hero() {
       className="relative min-h-screen bg-[#000000] overflow-hidden flex items-center justify-center pt-24 pb-16"
     >
       {/* Background Typographic Overlay - Yellow at 0.06 Opacity */}
-      <motion.div
-        style={{ y: bgTypoY }}
-        className="absolute inset-0 select-none flex items-center justify-center pointer-events-none z-0 w-full h-full overflow-hidden"
-      >
-        <h2 className="font-display text-[clamp(3rem,18vw,6.5rem)] md:text-[26vw] leading-none text-[#F5E000] opacity-[0.06] -rotate-[6deg] tracking-tighter text-center w-full">
-          K2 VIZAG
-        </h2>
-      </motion.div>
+      <div className="absolute inset-0 select-none pointer-events-none z-0 w-full h-full overflow-hidden flex items-center justify-center">
+        <motion.div
+          style={{ y: bgTypoY }}
+          className="w-full flex items-center justify-center"
+        >
+          <h2 className="font-display text-[clamp(3rem,18vw,6.5rem)] md:text-[26vw] leading-none text-[#F5E000] opacity-[0.06] -rotate-[6deg] tracking-tighter text-center w-full whitespace-nowrap">
+            K2 VIZAG
+          </h2>
+        </motion.div>
+      </div>
 
       {/* Grid Canvas Wrapper */}
       <motion.div

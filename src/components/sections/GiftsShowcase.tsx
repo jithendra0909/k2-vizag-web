@@ -59,7 +59,7 @@ function GiftTile({ name, description, message, className = "", aspectClass, img
       <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/70 to-transparent opacity-90 [@media(pointer:fine)]:opacity-60 [@media(pointer:fine)]:group-hover:opacity-90 transition-opacity duration-300 pointer-events-none z-10" />
 
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 z-20">
+      <div className="absolute inset-0 flex flex-col justify-end p-6 pt-8 md:p-8 md:pt-10 z-20">
         <h3 className="font-display text-2xl md:text-3xl uppercase tracking-wider text-[#FFFFFF] group-hover:text-[#F5E000] transition-colors mb-2">
           {name}
         </h3>
@@ -147,7 +147,7 @@ export default function GiftsShowcase() {
             name={generalData.name}
             description={generalData.description}
             message={generalData.message}
-            aspectClass="aspect-[4/3] md:aspect-auto md:h-[260px] md:col-span-2 lg:col-span-2"
+            aspectClass="aspect-[4/3] min-h-[300px] md:min-h-0 md:aspect-auto md:h-[260px] md:col-span-2 lg:col-span-2"
             imgSrc="/gallery/gifts/general-gifts.jpg"
           />
         </div>

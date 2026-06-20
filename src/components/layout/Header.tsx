@@ -150,15 +150,16 @@ export default function Header() {
           </motion.a>
 
           {/* Mobile WA Button - Circular and icon-only next to hamburger */}
-          <a
+          <motion.a
             href={getWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="md:hidden flex items-center justify-center bg-[#25D366] text-[#FFFFFF] p-2.5 rounded-full hover:scale-105 active:scale-95 shadow-[0_0_10px_rgba(37,211,102,0.3)]"
+            whileTap={{ scale: 0.92 }}
+            className="md:hidden flex items-center justify-center bg-[#25D366] text-[#FFFFFF] p-2.5 rounded-full shadow-[0_0_10px_rgba(37,211,102,0.3)] cursor-pointer"
             aria-label="Chat on WhatsApp"
           >
             <Phone className="w-4 h-4 text-[#FFFFFF] fill-current" />
-          </a>
+          </motion.a>
 
           {/* Mobile Menu Toggle */}
           <button
@@ -225,9 +226,10 @@ export default function Header() {
                       closed: { opacity: 0, y: 16 },
                       open: { opacity: 1, y: 0 },
                     }}
+                    whileTap={{ scale: 0.95 }}
                     className={`text-3xl uppercase font-display tracking-widest ${
                       isActive ? "text-[#F5E000]" : "text-[#FFFFFF]"
-                    } hover:text-[#F5E000] transition-colors`}
+                    } hover:text-[#F5E000] transition-colors cursor-pointer`}
                   >
                     {item.name}
                   </motion.a>
