@@ -141,13 +141,13 @@ export default function Hero() {
       onMouseLeave={handleMouseLeave}
       className="relative min-h-screen bg-[#000000] overflow-hidden flex items-center justify-center pt-24 pb-16"
     >
-      {/* Background Typographic Overlay - Yellow at 0.06 Opacity (Desktop Only) */}
-      <div className="absolute inset-0 select-none pointer-events-none z-0 w-full h-full overflow-hidden hidden md:flex items-center justify-center">
+      {/* Background Typographic Overlay - Yellow at 0.06 Opacity */}
+      <div className="absolute inset-0 select-none pointer-events-none z-0 w-full h-full overflow-hidden flex items-center justify-center">
         <motion.div
           style={{ y: bgTypoY }}
           className="w-full flex items-center justify-center"
         >
-          <h2 className="font-display text-[26vw] leading-none text-[#F5E000] opacity-[0.06] -rotate-[6deg] tracking-tighter text-center w-full whitespace-nowrap">
+          <h2 className="font-display text-[clamp(3rem,18vw,6.5rem)] md:text-[26vw] leading-none text-[#F5E000] opacity-[0.06] -rotate-[6deg] tracking-tighter text-center w-full whitespace-nowrap">
             K2 VIZAG
           </h2>
         </motion.div>
@@ -163,31 +163,19 @@ export default function Hero() {
         className="max-w-[1440px] mx-auto px-6 lg:px-16 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
       >
         {/* Left Column: Copy & Actions */}
-        <div className="lg:col-span-7 relative flex flex-col items-center lg:items-start text-center lg:text-left gap-8 w-full z-10">
-          {/* Mobile-Only Watermark — positioned to center vertically on the mobile text stack */}
-          <div className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden flex items-center justify-center md:hidden">
-            <motion.div
-              style={{ y: bgTypoY }}
-              className="w-full flex items-center justify-center"
-            >
-              <h2 className="font-display text-[clamp(8rem,40vh,14rem)] leading-none text-[#F5E000] opacity-[0.06] -rotate-[6deg] tracking-tighter text-center w-full whitespace-nowrap">
-                K2 VIZAG
-              </h2>
-            </motion.div>
-          </div>
-
+        <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left gap-8">
           {/* Eyebrow Badge - Yellow Background with Black Text */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.4 }}
-            className="inline-block bg-[#F5E000] px-3.5 py-1.5 rounded text-xs uppercase tracking-widest text-[#000000] font-mono font-bold -rotate-[3deg] shadow-[2px_2px_0px_#FFFFFF] relative z-10"
+            className="inline-block bg-[#F5E000] px-3.5 py-1.5 rounded text-xs uppercase tracking-widest text-[#000000] font-mono font-bold -rotate-[3deg] shadow-[2px_2px_0px_#FFFFFF]"
           >
             ★ 4.9 RATED · 400+ HAPPY CUSTOMERS
           </motion.div>
 
           {/* Headline H1 */}
-          <div className="flex flex-col gap-1 font-display leading-[0.9] tracking-tight text-[--text-hero] relative z-10">
+          <div className="flex flex-col gap-1 font-display leading-[0.9] tracking-tight text-[--text-hero]">
             <motion.h1
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -219,7 +207,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="text-[#FFFFFF]/65 font-body text-base md:text-lg leading-relaxed max-w-[580px] relative z-10"
+            className="text-[#FFFFFF]/65 font-body text-base md:text-lg leading-relaxed max-w-[580px]"
           >
             From Aadhar to PAN, passport photos to personalized pillows — Krishna and the team at K2 Vizag handle it fast, fairly priced, and with a smile. No queues. No stress. Just WhatsApp us.
           </motion.p>
@@ -229,7 +217,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.75, type: "spring", stiffness: 300, damping: 20 }}
-            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto relative z-10"
+            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
           >
             <a
               href={getWhatsAppLink()}
@@ -254,7 +242,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9, duration: 0.5 }}
-            className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-2 border-t border-[#F5E000]/10 pt-6 w-full max-w-[500px] relative z-10"
+            className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-2 border-t border-[#F5E000]/10 pt-6 w-full max-w-[500px]"
           >
             <div className="flex -space-x-3">
               {["Y", "G", "S", "K", "A"].map((init, i) => (
