@@ -25,74 +25,19 @@ export default async function Image() {
           width: "1200px",
           height: "630px",
           display: "flex",
-          flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: "#000000",
-          position: "relative",
-          padding: "0 60px",
         }}
       >
-        {/* Subtle large K2 watermark in background */}
-        <div
-          style={{
-            position: "absolute",
-            fontSize: "400px",
-            fontWeight: 900,
-            color: "rgba(245, 224, 0, 0.02)",
-            left: "10%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            pointerEvents: "none",
-          }}
-        >
-          K2
-        </div>
-
-        {/* Logo: Sized to 480px inside WhatsApp's square crop area */}
         <img
           src={logoData}
-          width={480}
-          height={480}
+          width={580}
+          height={580}
           style={{
             objectFit: "contain",
           }}
         />
-
-        {/* Tagline to the right */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            marginLeft: "48px",
-            maxWidth: "540px",
-            gap: "12px",
-          }}
-        >
-          <div
-            style={{
-              color: "#FFFFFF",
-              fontSize: "44px",
-              fontWeight: 800,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.15,
-            }}
-          >
-            DOCUMENTS, PRINTS &
-          </div>
-          <div
-            style={{
-              color: "#F5E000",
-              fontSize: "44px",
-              fontWeight: 800,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.15,
-            }}
-          >
-            CUSTOM GIFTS IN VIZAG
-          </div>
-        </div>
       </div>
     ),
     {

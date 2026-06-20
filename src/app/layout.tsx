@@ -11,14 +11,6 @@ export const metadata: Metadata = {
     description: "Documents, prints & personalized gifts in Vizag — Aadhar, PAN, Voter ID, Passport, color prints, photo frames, custom mugs & pillows.",
     url: "https://k2-vizag-web.vercel.app",
     siteName: "K2 Vizag",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "K2 Vizag Net Center & Customized Gifts",
-      },
-    ],
     locale: "en_IN",
     type: "website",
   },
@@ -26,7 +18,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "K2 Vizag Net Center & Customized Gifts",
     description: "Documents, prints & personalized gifts in Vizag — Aadhar, PAN, Voter ID, Passport, color prints, photo frames, custom mugs & pillows.",
-    images: ["/og-image.jpg"],
   },
 };
 
