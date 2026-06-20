@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --color-k2-black: #000000;
+  --color-k2-yellow: #F5E000;
+  --color-k2-yellow-hover: #FFE500;
+  --color-k2-white: #FFFFFF;
+  --color-k2-whatsapp: #25D366;
+
+  --font-display: "Anton", "Bebas Neue", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+:root {
+  --background: #000000;
+  --foreground: #FFFFFF;
+}
+
+/* Custom resets & styling */
+html, body {
+  background-color: #000000;
+  color: #FFFFFF;
+  font-family: "Inter", sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F5E000;
+}
+
+/* Scroll snap scrollbar hides */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Global utility classes for premium styling */
+.font-display {
+  font-family: "Anton", "Bebas Neue", sans-serif;
+}
+.font-body {
+  font-family: "Inter", sans-serif;
+}
+.font-mono {
+  font-family: "JetBrains Mono", monospace;
+}
