@@ -8,6 +8,22 @@ import { getWhatsAppLink } from "@/lib/whatsapp";
 import Image from "next/image";
 
 const IMAGE_MAP: Record<string, { src: string; alt: string }> = {
+  aadhar: {
+    src: "/cards/government/aadhar.jpg",
+    alt: "Aadhar card enrollment and update assistance, K2 Vizag"
+  },
+  pan: {
+    src: "/cards/government/pan.jpg",
+    alt: "PAN card application and correction assistance, K2 Vizag"
+  },
+  voter: {
+    src: "/cards/government/voter-id.jpg",
+    alt: "Voter ID card registration and updates, K2 Vizag"
+  },
+  passport: {
+    src: "/cards/government/passport.jpg",
+    alt: "Passport application and renewal appointment assistance, K2 Vizag"
+  },
   pf: {
     src: "/cards/government/pf.jpg",
     alt: "Provident Fund withdrawal and KYC updates, K2 Vizag"
@@ -19,69 +35,12 @@ const IMAGE_MAP: Record<string, { src: string; alt: string }> = {
   insurance: {
     src: "/cards/government/vehicle-insurance.jpg",
     alt: "Two-wheeler and four-wheeler vehicle insurance, K2 Vizag"
+  },
+  pvc: {
+    src: "/cards/government/pvc-card.jpg",
+    alt: "PVC smart card print services, K2 Vizag"
   }
 };
-
-function TypographyCard({ type }: { type: string }) {
-  if (type === "aadhar") {
-    return (
-      <div className="w-full h-full bg-[#000000] relative flex items-center justify-center overflow-hidden p-6 select-none">
-        <Icons.Fingerprint className="absolute w-[180px] h-[180px] text-[#F5E000]/5 -right-6 -bottom-6 rotate-12 stroke-[1] pointer-events-none" />
-        <span className="font-display text-[44px] md:text-[50px] font-black uppercase tracking-tighter text-[#F5E000] z-10 leading-none">
-          AADHAR
-        </span>
-      </div>
-    );
-  }
-
-  if (type === "pan") {
-    return (
-      <div className="w-full h-full bg-[#000000] relative flex items-center justify-center overflow-hidden p-6 select-none">
-        <span className="absolute text-[120px] font-display font-black text-[#F5E000]/5 right-4 -bottom-6 leading-none select-none pointer-events-none">
-          ₹
-        </span>
-        <span className="font-display text-[50px] md:text-[58px] font-black uppercase tracking-tighter text-[#F5E000] z-10 leading-none">
-          PAN
-        </span>
-      </div>
-    );
-  }
-
-  if (type === "voter") {
-    return (
-      <div className="w-full h-full bg-[#000000] relative flex items-center justify-center overflow-hidden p-6 select-none">
-        <Icons.Vote className="absolute w-[160px] h-[160px] text-[#F5E000]/5 -right-4 -bottom-4 rotate-6 stroke-[1] pointer-events-none" />
-        <span className="font-display text-[50px] md:text-[58px] font-black uppercase tracking-tighter text-[#F5E000] z-10 leading-none">
-          VOTE
-        </span>
-      </div>
-    );
-  }
-
-  if (type === "passport") {
-    return (
-      <div className="w-full h-full bg-[#000000] relative flex items-center justify-center overflow-hidden p-6 select-none">
-        <Icons.Plane className="absolute w-[160px] h-[160px] text-[#F5E000]/5 -right-4 -bottom-4 -rotate-12 stroke-[1] pointer-events-none" />
-        <span className="font-display text-[38px] md:text-[46px] font-black uppercase tracking-tighter text-[#F5E000] z-10 leading-none">
-          PASSPORT
-        </span>
-      </div>
-    );
-  }
-
-  if (type === "pvc") {
-    return (
-      <div className="w-full h-full bg-[#000000] relative flex items-center justify-center overflow-hidden p-6 select-none">
-        <div className="absolute w-[130px] h-[85px] border border-[#F5E000]/10 rounded-lg -right-4 -bottom-4 rotate-12 pointer-events-none" />
-        <span className="font-display text-[40px] md:text-[48px] font-black uppercase tracking-tighter text-[#F5E000] z-10 leading-none">
-          PVC CARD
-        </span>
-      </div>
-    );
-  }
-
-  return <div className="w-full h-full bg-[#0a0a0a]" />;
-}
 
 export default function ServicesGovernment() {
   const containerVariants = {
@@ -141,7 +100,6 @@ export default function ServicesGovernment() {
           {SERVICES_GOVERNMENT.map((srv, idx) => {
             const IconComponent = (Icons as any)[srv.icon] || Icons.HelpCircle;
             const imgData = IMAGE_MAP[srv.id];
-            const isTypographyCard = ["aadhar", "pan", "voter", "passport", "pvc"].includes(srv.id);
             const isAlternate = idx % 2 === 0;
 
             return (
@@ -153,9 +111,7 @@ export default function ServicesGovernment() {
               >
                 {/* Mockup Container */}
                 <div className="w-full h-[180px] overflow-hidden relative bg-[#0a0a0a] group-hover:scale-[1.03] transition-transform duration-300">
-                  {isTypographyCard ? (
-                    <TypographyCard type={srv.id} />
-                  ) : imgData ? (
+                  {imgData ? (
                     <Image
                       src={imgData.src}
                       alt={imgData.alt}
