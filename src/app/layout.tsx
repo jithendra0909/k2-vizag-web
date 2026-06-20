@@ -3,14 +3,31 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "K2 Vizag Net Center & Customized Gifts | Aadhar, PAN, Prints & Personalized Gifts in Vizag",
-  description: "Get fast same-day printing, Aadhar/PAN card assistance, voter documents, passport support, lamination, and premium customized gift photo frames, mugs & pillows in Madhavadhara, Visakhapatnam. Krishna and the K2 Vizag team are ready to assist you!",
+  description: "Documents, prints & personalized gifts in Vizag. Aadhar, PAN, Voter ID, Passport assistance, color prints, photo frames, custom mugs & pillows. Fast, fair-priced, WhatsApp us today.",
   keywords: "K2 Vizag, Net Center Vizag, Customized Gifts Visakhapatnam, Photo Frame Mug Printing, Aadhar PAN Card Visakhapatnam, Xerox DTP Madhavadhara, Madhavadhara, Muralinagar, Visakhapatnam",
+  metadataBase: new URL("https://k2-vizag-web.vercel.app"),
   openGraph: {
     title: "K2 Vizag Net Center & Customized Gifts",
-    description: "Your local net center, documentation hub, and personalized gifting studio in Visakhapatnam. Same-day printing and premium personalized mugs, frames & pillows.",
-    type: "website",
+    description: "Documents, prints & personalized gifts in Vizag — Aadhar, PAN, Voter ID, Passport, color prints, photo frames, custom mugs & pillows.",
+    url: "https://k2-vizag-web.vercel.app",
+    siteName: "K2 Vizag",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "K2 Vizag Net Center & Customized Gifts",
+      },
+    ],
     locale: "en_IN",
-  }
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "K2 Vizag Net Center & Customized Gifts",
+    description: "Documents, prints & personalized gifts in Vizag — Aadhar, PAN, Voter ID, Passport, color prints, photo frames, custom mugs & pillows.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
