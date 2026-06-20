@@ -3,22 +3,31 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as Icons from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { SERVICES_PRINTING } from "@/lib/constants";
 import { getWhatsAppLink } from "@/lib/whatsapp";
-import { 
-  PrintMockup,
-  PassportPhotoMockup,
-  SpiralBindingMockup,
-  LaminationMockup,
-  DocumentMockup
-} from "@/components/ui/ServiceMockups";
 
-const MOCKUP_MAP: Record<string, React.ComponentType> = {
-  prints: PrintMockup,
-  photos: PassportPhotoMockup,
-  binding: SpiralBindingMockup,
-  lamination: LaminationMockup,
-  "doc-printing": DocumentMockup,
+const IMAGE_MAP: Record<string, { src: string; alt: string }> = {
+  prints: {
+    src: "/cards/printing/prints-color.jpg",
+    alt: "Premium color and black & white printing service, K2 Vizag"
+  },
+  photos: {
+    src: "/cards/printing/passport-photos.jpg",
+    alt: "Professional passport photo printing service, K2 Vizag"
+  },
+  binding: {
+    src: "/cards/printing/spiral-binding.jpg",
+    alt: "High-quality spiral binding service, K2 Vizag"
+  },
+  lamination: {
+    src: "/cards/printing/lamination.jpg",
+    alt: "Durable document lamination service, K2 Vizag"
+  },
+  "doc-printing": {
+    src: "/cards/printing/document-printing.jpg",
+    alt: "General document printing service, K2 Vizag"
+  }
 };
 
 export default function ServicesPrinting() {
@@ -77,7 +86,7 @@ export default function ServicesPrinting() {
         <div className="hidden lg:grid grid-cols-5 gap-6">
           {SERVICES_PRINTING.map((srv, idx) => {
             const IconComponent = (Icons as any)[srv.icon] || Icons.HelpCircle;
-            const MockupComponent = MOCKUP_MAP[srv.id] || (() => <div className="w-full h-[180px] bg-[#0a0a0a]" />);
+            const imgData = IMAGE_MAP[srv.id];
             const isAlternate = idx % 2 === 0;
 
             return (
@@ -96,7 +105,18 @@ export default function ServicesPrinting() {
               >
                 {/* Mockup Container */}
                 <div className="w-full h-[180px] overflow-hidden relative bg-[#0a0a0a] group-hover:scale-[1.03] transition-transform duration-300">
-                  <MockupComponent />
+                  {imgData ? (
+                    <Image
+                      src={imgData.src}
+                      alt={imgData.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 20vw"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-[#0a0a0a]" />
+                  )}
                   
                   {/* Rotating Icon Overlap Badge */}
                   <div
@@ -147,7 +167,7 @@ export default function ServicesPrinting() {
           >
             {SERVICES_PRINTING.map((srv, idx) => {
               const IconComponent = (Icons as any)[srv.icon] || Icons.HelpCircle;
-              const MockupComponent = MOCKUP_MAP[srv.id] || (() => <div className="w-full h-[180px] bg-[#0a0a0a]" />);
+              const imgData = IMAGE_MAP[srv.id];
               const isAlternate = idx % 2 === 0;
 
               return (
@@ -157,7 +177,18 @@ export default function ServicesPrinting() {
                 >
                   {/* Mockup Container */}
                   <div className="w-full h-[180px] overflow-hidden relative bg-[#0a0a0a] self-stretch">
-                    <MockupComponent />
+                    {imgData ? (
+                      <Image
+                        src={imgData.src}
+                        alt={imgData.alt}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, 320px"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-[#0a0a0a]" />
+                    )}
                     
                     {/* Rotating Icon Overlap Badge */}
                     <div
