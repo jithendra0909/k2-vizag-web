@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { MapPin, Clock, Navigation, MessageSquare } from "lucide-react";
 import { motion, useInView } from "framer-motion";
-import { ADDRESS, MAPS_DIRECTIONS_URL, MAPS_EMBED_URL, HOURS_FOOTNOTE, HOURS_WEEKDAYS } from "@/lib/constants";
+import { ADDRESS, MAPS_DIRECTIONS_URL, MAPS_EMBED_URL, HOURS_FOOTNOTE, HOURS_WEEKDAYS, HOURS_SUNDAY } from "@/lib/constants";
 import { getWhatsAppLink } from "@/lib/whatsapp";
 
 const DAYS_OF_WEEK = [
@@ -20,6 +20,7 @@ export default function LocationHours() {
   const [mounted, setMounted] = useState(false);
   const [currentDayIndex, setCurrentDayIndex] = useState(-1);
   const [isOpenNow, setIsOpenNow] = useState(false);
+  const [nextOpenText, setNextOpenText] = useState("Closed");
   
   const mapRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -29,17 +30,47 @@ export default function LocationHours() {
   useEffect(() => {
     setMounted(true);
     const now = new Date();
-    const currentDay = now.getDay();
+    const currentDay = now.getDay(); // 0 is Sunday, 1-6 is Mon-Sat
     setCurrentDayIndex(currentDay);
 
     const currentHour = now.getHours();
     const currentMinute = now.getMinutes();
     const timeInHours = currentHour + currentMinute / 60;
 
-    if (timeInHours >= HOURS_WEEKDAYS.open && timeInHours < HOURS_WEEKDAYS.close) {
+    let open = 9;
+    let close = 21;
+    if (currentDay === 0) { // Sunday
+      open = HOURS_SUNDAY.open;
+      close = HOURS_SUNDAY.close;
+    } else {
+      open = HOURS_WEEKDAYS.open;
+      close = HOURS_WEEKDAYS.close;
+    }
+
+    if (timeInHours >= open && timeInHours < close) {
       setIsOpenNow(true);
     } else {
       setIsOpenNow(false);
+      // Determine when it opens next
+      if (currentDay === 0) { // Sunday
+        if (timeInHours < HOURS_SUNDAY.open) {
+          setNextOpenText("Closed — Opens today 10:00 AM");
+        } else {
+          setNextOpenText("Closed — Opens Monday 9:00 AM");
+        }
+      } else if (currentDay === 6) { // Saturday
+        if (timeInHours < HOURS_WEEKDAYS.open) {
+          setNextOpenText("Closed — Opens today 9:00 AM");
+        } else {
+          setNextOpenText("Closed — Opens Sunday 10:00 AM");
+        }
+      } else { // Mon-Fri
+        if (timeInHours < HOURS_WEEKDAYS.open) {
+          setNextOpenText("Closed — Opens today 9:00 AM");
+        } else {
+          setNextOpenText("Closed — Opens tomorrow 9:00 AM");
+        }
+      }
     }
   }, []);
 
@@ -95,7 +126,7 @@ export default function LocationHours() {
                   : "bg-[#000000] text-[#FFFFFF]/65 border border-[#FFFFFF]/10"
               }`}>
                 <span className={`w-2 h-2 rounded-full ${isOpenNow ? "bg-[#25D366]" : "bg-[#FFFFFF]/45"} animate-pulse`} />
-                <span>{isOpenNow ? "Open Now" : "Closed — Opens 9:00 AM"}</span>
+                <span>{isOpenNow ? "Open Now" : nextOpenText}</span>
               </div>
             )}
           </div>
@@ -124,6 +155,7 @@ export default function LocationHours() {
             <div className="divide-y divide-[#F5E000]/10">
               {DAYS_OF_WEEK.map((item) => {
                 const isToday = mounted && currentDayIndex === item.index;
+                const hoursText = item.index === 0 ? "10:00 AM — 1:30 PM" : "9:00 AM — 9:00 PM";
                 return (
                   <div
                     key={item.day}
@@ -134,7 +166,7 @@ export default function LocationHours() {
                     }`}
                   >
                     <span>{item.day}</span>
-                    <span>9:00 AM — 9:00 PM</span>
+                    <span>{hoursText}</span>
                   </div>
                 );
               })}

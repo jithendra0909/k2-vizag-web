@@ -7,7 +7,8 @@ export const MAPS_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&desti
 export const MAPS_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d953.3024362702375!2d83.26855387506224!3d17.74383559127783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1781942399250!5m2!1sen!2sin";
 
 export const HOURS_WEEKDAYS = { open: 9, close: 21 }; // 9 AM to 9 PM
-export const HOURS_DISPLAY = "Mon–Sun, 9:00 AM – 9:00 PM";
+export const HOURS_SUNDAY = { open: 10, close: 13.5 }; // 10 AM to 1:30 PM
+export const HOURS_DISPLAY = "Mon–Sat: 9:00 AM – 9:00 PM, Sun: 10:00 AM – 1:30 PM";
 export const HOURS_FOOTNOTE = "Hours may vary on holidays, please WhatsApp to confirm";
 
 export const SERVICES_GOVERNMENT = [
