@@ -5,26 +5,41 @@ import * as Icons from "lucide-react";
 import { motion } from "framer-motion";
 import { SERVICES_GOVERNMENT } from "@/lib/constants";
 import { getWhatsAppLink } from "@/lib/whatsapp";
-import { 
-  AadharCardMockup,
-  PanCardMockup,
-  VoterIdMockup,
-  PassportMockup,
-  PFMockup,
-  RTOMockup,
-  InsuranceMockup,
-  PVCCardMockup
-} from "@/components/ui/ServiceMockups";
+import Image from "next/image";
 
-const MOCKUP_MAP: Record<string, React.ComponentType> = {
-  aadhar: AadharCardMockup,
-  pan: PanCardMockup,
-  voter: VoterIdMockup,
-  passport: PassportMockup,
-  pf: PFMockup,
-  rto: RTOMockup,
-  insurance: InsuranceMockup,
-  pvc: PVCCardMockup,
+const IMAGE_MAP: Record<string, { src: string; alt: string }> = {
+  aadhar: {
+    src: "/cards/government/aadhar.jpg",
+    alt: "Aadhar card enrollment and update assistance, K2 Vizag"
+  },
+  pan: {
+    src: "/cards/government/pan.jpg",
+    alt: "PAN card application and correction assistance, K2 Vizag"
+  },
+  voter: {
+    src: "/cards/government/voter-id.jpg",
+    alt: "Voter ID card registration and updates, K2 Vizag"
+  },
+  passport: {
+    src: "/cards/government/passport.jpg",
+    alt: "Passport application and renewal appointment assistance, K2 Vizag"
+  },
+  pf: {
+    src: "/cards/government/pf.jpg",
+    alt: "Provident Fund withdrawal and KYC updates, K2 Vizag"
+  },
+  rto: {
+    src: "/cards/government/rto.jpg",
+    alt: "RTO driving license and registration services, K2 Vizag"
+  },
+  insurance: {
+    src: "/cards/government/vehicle-insurance.jpg",
+    alt: "Two-wheeler and four-wheeler vehicle insurance, K2 Vizag"
+  },
+  pvc: {
+    src: "/cards/government/pvc-card.jpg",
+    alt: "PVC smart card print services, K2 Vizag"
+  }
 };
 
 export default function ServicesGovernment() {
@@ -84,7 +99,7 @@ export default function ServicesGovernment() {
         >
           {SERVICES_GOVERNMENT.map((srv, idx) => {
             const IconComponent = (Icons as any)[srv.icon] || Icons.HelpCircle;
-            const MockupComponent = MOCKUP_MAP[srv.id] || (() => <div className="w-full h-[180px] bg-[#0a0a0a]" />);
+            const imgData = IMAGE_MAP[srv.id];
             const isAlternate = idx % 2 === 0;
 
             return (
@@ -96,7 +111,18 @@ export default function ServicesGovernment() {
               >
                 {/* Mockup Container */}
                 <div className="w-full h-[180px] overflow-hidden relative bg-[#0a0a0a] group-hover:scale-[1.03] transition-transform duration-300">
-                  <MockupComponent />
+                  {imgData ? (
+                    <Image
+                      src={imgData.src}
+                      alt={imgData.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-[#0a0a0a]" />
+                  )}
                   
                   {/* Rotating Icon Badge positioned absolutely overlapping the bottom edge */}
                   <motion.div
