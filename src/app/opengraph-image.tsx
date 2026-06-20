@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import fs from "fs";
+import path from "path";
 
 export const dynamic = "force-static";
 
@@ -11,19 +13,24 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image() {
+  // Read the local user-provided logo file as base64
+  const logoPath = path.join(process.cwd(), "public/logo.png");
+  const logoBuffer = fs.readFileSync(logoPath);
+  const logoData = `data:image/png;base64,${logoBuffer.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
         style={{
-          background: "#000000",
-          width: "100%",
-          height: "100%",
+          width: "1200px",
+          height: "630px",
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 80px",
+          justifyContent: "center",
+          backgroundColor: "#000000",
           position: "relative",
+          padding: "0 60px",
         }}
       >
         {/* Subtle large K2 watermark in background */}
@@ -32,7 +39,7 @@ export default async function Image() {
             position: "absolute",
             fontSize: "400px",
             fontWeight: 900,
-            color: "rgba(245, 224, 0, 0.03)",
+            color: "rgba(245, 224, 0, 0.02)",
             left: "10%",
             top: "50%",
             transform: "translate(-50%, -50%)",
@@ -42,71 +49,49 @@ export default async function Image() {
           K2
         </div>
 
-        {/* Left Side: Logo */}
-        <div
+        {/* Logo: Sized to 480px inside WhatsApp's square crop area */}
+        <img
+          src={logoData}
+          width={480}
+          height={480}
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "10px",
+            objectFit: "contain",
           }}
-        >
-          <span
-            style={{
-              fontSize: "110px",
-              fontWeight: 900,
-              color: "#F5E000",
-              lineHeight: 1,
-              letterSpacing: "-0.05em",
-            }}
-          >
-            K2
-          </span>
-          <span
-            style={{
-              fontSize: "36px",
-              fontWeight: 700,
-              color: "#FFFFFF",
-              lineHeight: 1,
-              letterSpacing: "0.2em",
-            }}
-          >
-            VIZAG
-          </span>
-        </div>
+        />
 
-        {/* Right Side: Tagline */}
+        {/* Tagline to the right */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
-            maxWidth: '580px',
-            gap: "15px",
+            justifyContent: "center",
+            marginLeft: "48px",
+            maxWidth: "540px",
+            gap: "12px",
           }}
         >
-          <span
+          <div
             style={{
+              color: "#FFFFFF",
               fontSize: "44px",
               fontWeight: 800,
-              color: "#FFFFFF",
-              lineHeight: 1.2,
               letterSpacing: "-0.02em",
+              lineHeight: 1.15,
             }}
           >
             DOCUMENTS, PRINTS &
-          </span>
-          <span
+          </div>
+          <div
             style={{
+              color: "#F5E000",
               fontSize: "44px",
               fontWeight: 800,
-              color: "#F5E000",
-              lineHeight: 1.2,
               letterSpacing: "-0.02em",
+              lineHeight: 1.15,
             }}
           >
             CUSTOM GIFTS IN VIZAG
-          </span>
+          </div>
         </div>
       </div>
     ),
