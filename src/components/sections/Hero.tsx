@@ -86,59 +86,24 @@ export default function Hero() {
     }
   };
 
-  const cardAnimate = shouldReduceMotion 
-    ? {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        rotate: -6,
-        boxShadow: "0 0 50px rgba(245,224,0,0.15)"
-      }
-    : {
-        opacity: 1,
-        scale: 1,
-        y: [0, -20, 0],
-        rotate: [-6, -4, -6],
-        boxShadow: [
-          "0 0 50px rgba(245,224,0,0.15)",
-          "0 0 70px rgba(245,224,0,0.30)",
-          "0 0 50px rgba(245,224,0,0.15)"
-        ]
-      };
+  const cardAnimate = {
+    opacity: 1,
+    scale: 1
+  };
 
-  const cardTransition = (shouldReduceMotion
-    ? {
-        delay: 0.4,
-        type: "spring",
-        stiffness: 200,
-        damping: 20
-      }
-    : {
-        opacity: { delay: 0.4, duration: 0.5 },
-        scale: { delay: 0.4, duration: 0.5 },
-        y: {
-          duration: 6,
-          repeat: Infinity,
-          ease: [0.45, 0.05, 0.55, 0.95]
-        },
-        rotate: {
-          duration: 6,
-          repeat: Infinity,
-          ease: [0.45, 0.05, 0.55, 0.95]
-        },
-        boxShadow: {
-          duration: 6,
-          repeat: Infinity,
-          ease: [0.45, 0.05, 0.55, 0.95]
-        }
-      }) as any;
+  const cardTransition = {
+    delay: 0.4,
+    type: "spring" as const,
+    stiffness: 200,
+    damping: 20
+  };
 
   return (
     <section
       id="home"
       ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      onMouseMove={hasPointer ? handleMouseMove : undefined}
+      onMouseLeave={hasPointer ? handleMouseLeave : undefined}
       className="relative min-h-screen bg-[#000000] overflow-hidden flex items-center justify-center pt-24 pb-16"
     >
       {/* Background Typographic Overlay - Yellow at 0.06 Opacity */}
@@ -274,20 +239,23 @@ export default function Hero() {
               x: pDepth1X,
               y: pDepth1Y
             }}
-            initial={{ opacity: 0, scale: 0.85, rotate: -8 }}
+            initial={{ opacity: 0, scale: 0.85 }}
             animate={cardAnimate}
             transition={cardTransition}
-            className="relative w-[180px] h-[180px] md:w-[240px] md:h-[240px] bg-[#000000] border-2 border-[#F5E000]/30 rounded-2xl p-3 md:p-5 flex flex-col items-center justify-center select-none pointer-events-auto z-10"
+            className="relative select-none pointer-events-auto z-10"
           >
-            {/* Inner Logo Image Wrapper */}
-            <div className="relative w-28 h-28 md:w-40 md:h-40 flex items-center justify-center">
-              <Image
-                src="/logo.png"
-                alt="K2 Vizag Large Logo"
-                fill
-                className="object-contain"
-                priority
-              />
+            {/* Inner CSS Float Card */}
+            <div className="w-[180px] h-[180px] md:w-[240px] md:h-[240px] bg-[#000000] border-2 border-[#F5E000]/30 rounded-2xl p-3 md:p-5 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(245,224,0,0.15)] animate-float-logo">
+              {/* Inner Logo Image Wrapper */}
+              <div className="relative w-28 h-28 md:w-40 md:h-40 flex items-center justify-center">
+                <Image
+                  src="/logo.png"
+                  alt="K2 Vizag Large Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </div>
           </motion.div>
 
@@ -318,21 +286,16 @@ export default function Hero() {
                 }}
                 className="absolute hidden md:block z-20"
               >
-                {/* Floating ambient animation */}
-                <motion.div
-                  animate={shouldReduceMotion ? { y: 0 } : { y: [0, -8, 0] }}
-                  transition={shouldReduceMotion ? { duration: 0 } : {
-                    duration: chip.speed,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="bg-[#000000] border border-[#F5E000]/20 px-3.5 py-2 rounded-lg flex items-center gap-2 shadow-[0_4px_16px_rgba(0,0,0,0.5)] backdrop-blur-md select-none text-[#FFFFFF] text-xs font-semibold whitespace-nowrap hover:border-[#F5E000] transition-colors"
+                {/* Floating ambient animation via GPU compositor */}
+                <div
+                  style={{ animationDuration: `${chip.speed}s` }}
+                  className="bg-[#000000] border border-[#F5E000]/20 px-3.5 py-2 rounded-lg flex items-center gap-2 shadow-[0_4px_16px_rgba(0,0,0,0.5)] backdrop-blur-md select-none text-[#FFFFFF] text-xs font-semibold whitespace-nowrap hover:border-[#F5E000] transition-colors animate-float-chip"
                 >
                   <span className="w-5 h-5 rounded bg-[#F5E000] flex items-center justify-center text-[#000000]">
                     <IconComponent className="w-3.5 h-3.5" />
                   </span>
                   <span>{chip.name}</span>
-                </motion.div>
+                </div>
               </motion.div>
             );
           })}
@@ -360,21 +323,16 @@ export default function Hero() {
                 }}
                 className="absolute block md:hidden z-20"
               >
-                {/* Floating ambient animation */}
-                <motion.div
-                  animate={shouldReduceMotion ? { y: 0 } : { y: [0, -4, 0] }}
-                  transition={shouldReduceMotion ? { duration: 0 } : {
-                    duration: chip.speed,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="bg-[#000000] border border-[#F5E000]/20 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 shadow-[0_4px_16px_rgba(0,0,0,0.5)] backdrop-blur-md select-none text-[#FFFFFF] text-[10px] font-semibold whitespace-nowrap"
+                {/* Floating ambient animation via GPU compositor */}
+                <div
+                  style={{ animationDuration: `${chip.speed}s` }}
+                  className="bg-[#000000] border border-[#F5E000]/20 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 shadow-[0_4px_16px_rgba(0,0,0,0.5)] backdrop-blur-md select-none text-[#FFFFFF] text-[10px] font-semibold whitespace-nowrap animate-float-chip"
                 >
                   <span className="w-4 h-4 rounded bg-[#F5E000] flex items-center justify-center text-[#000000]">
                     <IconComponent className="w-3 h-3" />
                   </span>
                   <span>{chip.name}</span>
-                </motion.div>
+                </div>
               </motion.div>
             );
           })}
