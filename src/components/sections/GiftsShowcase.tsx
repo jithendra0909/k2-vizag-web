@@ -147,7 +147,7 @@ export default function GiftsShowcase() {
             name={generalData.name}
             description={generalData.description}
             message={generalData.message}
-            aspectClass="aspect-[4/3] min-h-[300px] md:min-h-0 md:aspect-auto md:h-[260px] md:col-span-2 lg:col-span-2"
+            aspectClass="aspect-[4/3] md:aspect-auto md:h-[260px] md:col-span-2 lg:col-span-2"
             imgSrc="/gallery/gifts/general-gifts.jpg"
           />
         </div>

@@ -1,5 +1,4 @@
 import React from "react";
-import AnnouncementBar from "@/components/layout/AnnouncementBar";
 import Header from "@/components/layout/Header";
 import Hero from "@/components/sections/Hero";
 import TrustStrip from "@/components/sections/TrustStrip";
@@ -19,7 +18,6 @@ import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
 export default function Home() {
   return (
     <>
-      <AnnouncementBar />
       <Header />
       <main className="relative bg-[#000000] overflow-x-hidden min-h-screen">
         <Hero />

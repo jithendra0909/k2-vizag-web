@@ -8,25 +8,33 @@ import { getWhatsAppLink } from "@/lib/whatsapp";
 
 // Floating chips configurations
 const FLOATING_CHIPS_DESKTOP = [
-  { name: "Aadhar", icon: Fingerprint, delay: 0.1, x: "-30%", y: "-35%", speed: 5 },
-  { name: "PAN Card", icon: CreditCard, delay: 0.3, x: "40%", y: "-40%", speed: 6 },
-  { name: "Frames", icon: ImageIcon, delay: 0.2, x: "-45%", y: "25%", speed: 5.5 },
-  { name: "Mugs", icon: Coffee, delay: 0.4, x: "35%", y: "30%", speed: 6.5 }
+  { name: "Aadhar", icon: Fingerprint, delay: 0.1, x: "-180px", y: "-160px", speed: 5 },
+  { name: "PAN Card", icon: CreditCard, delay: 0.3, x: "110px", y: "-175px", speed: 6 },
+  { name: "Frames", icon: ImageIcon, delay: 0.2, x: "-195px", y: "110px", speed: 5.5 },
+  { name: "Mugs", icon: Coffee, delay: 0.4, x: "100px", y: "135px", speed: 6.5 }
 ];
 
 const FLOATING_CHIPS_MOBILE = [
-  { name: "Aadhar", icon: Fingerprint, delay: 0.1, x: "-75px", y: "-80px", speed: 4 },
-  { name: "PAN Card", icon: CreditCard, delay: 0.3, x: "65px", y: "-85px", speed: 5 },
-  { name: "Frames", icon: ImageIcon, delay: 0.2, x: "-80px", y: "70px", speed: 4.5 },
-  { name: "Mugs", icon: Coffee, delay: 0.4, x: "70px", y: "75px", speed: 5.5 }
+  { name: "Aadhar", icon: Fingerprint, delay: 0.1, x: "-120px", y: "-110px", speed: 4 },
+  { name: "PAN Card", icon: CreditCard, delay: 0.3, x: "40px", y: "-120px", speed: 5 },
+  { name: "Frames", icon: ImageIcon, delay: 0.2, x: "-130px", y: "75px", speed: 4.5 },
+  { name: "Mugs", icon: Coffee, delay: 0.4, x: "50px", y: "90px", speed: 5.5 }
 ];
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hasPointer, setHasPointer] = useState(false);
+  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
 
   useEffect(() => {
     setHasPointer(window.matchMedia("(pointer: fine)").matches);
+    
+    // Check prefers-reduced-motion
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setShouldReduceMotion(mediaQuery.matches);
+    const listener = (e: MediaQueryListEvent) => setShouldReduceMotion(e.matches);
+    mediaQuery.addEventListener("change", listener);
+    return () => mediaQuery.removeEventListener("change", listener);
   }, []);
   
   // Scroll transformations
@@ -77,6 +85,53 @@ export default function Hero() {
       target.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const cardAnimate = shouldReduceMotion 
+    ? {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        rotate: -6,
+        boxShadow: "0 0 50px rgba(245,224,0,0.15)"
+      }
+    : {
+        opacity: 1,
+        scale: 1,
+        y: [0, -20, 0],
+        rotate: [-6, -4, -6],
+        boxShadow: [
+          "0 0 50px rgba(245,224,0,0.15)",
+          "0 0 70px rgba(245,224,0,0.30)",
+          "0 0 50px rgba(245,224,0,0.15)"
+        ]
+      };
+
+  const cardTransition = (shouldReduceMotion
+    ? {
+        delay: 0.4,
+        type: "spring",
+        stiffness: 200,
+        damping: 20
+      }
+    : {
+        opacity: { delay: 0.4, duration: 0.5 },
+        scale: { delay: 0.4, duration: 0.5 },
+        y: {
+          duration: 6,
+          repeat: Infinity,
+          ease: [0.45, 0.05, 0.55, 0.95]
+        },
+        rotate: {
+          duration: 6,
+          repeat: Infinity,
+          ease: [0.45, 0.05, 0.55, 0.95]
+        },
+        boxShadow: {
+          duration: 6,
+          repeat: Infinity,
+          ease: [0.45, 0.05, 0.55, 0.95]
+        }
+      }) as any;
 
   return (
     <section
@@ -220,31 +275,20 @@ export default function Hero() {
               y: pDepth1Y
             }}
             initial={{ opacity: 0, scale: 0.85, rotate: -8 }}
-            animate={{ opacity: 1, scale: 1, rotate: -6 }}
-            transition={{ delay: 0.4, type: "spring", stiffness: 200, damping: 20 }}
-            className="relative w-[220px] h-[220px] md:w-[260px] md:h-[260px] bg-[#000000] border-2 border-[#F5E000]/30 rounded-2xl p-6 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(245,224,0,0.15)] select-none pointer-events-auto"
+            animate={cardAnimate}
+            transition={cardTransition}
+            className="relative w-[180px] h-[180px] md:w-[240px] md:h-[240px] bg-[#000000] border-2 border-[#F5E000]/30 rounded-2xl p-3 md:p-5 flex flex-col items-center justify-center select-none pointer-events-auto z-10"
           >
-            {/* Ambient Float Loop */}
-            <motion.div
-              animate={{
-                y: [0, -12, 0],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="relative w-full h-full flex flex-col items-center justify-center"
-            >
+            {/* Inner Logo Image Wrapper */}
+            <div className="relative w-28 h-28 md:w-40 md:h-40 flex items-center justify-center">
               <Image
                 src="/logo.png"
                 alt="K2 Vizag Large Logo"
-                width={200}
-                height={200}
+                fill
                 className="object-contain"
                 priority
               />
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Floating Orbiting Chips - Desktop View */}
@@ -272,19 +316,17 @@ export default function Hero() {
                   stiffness: 260,
                   damping: 20
                 }}
-                className="absolute hidden md:block"
+                className="absolute hidden md:block z-20"
               >
                 {/* Floating ambient animation */}
                 <motion.div
-                  animate={{
-                    y: [0, -8, 0],
-                  }}
-                  transition={{
+                  animate={shouldReduceMotion ? { y: 0 } : { y: [0, -8, 0] }}
+                  transition={shouldReduceMotion ? { duration: 0 } : {
                     duration: chip.speed,
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
-                  className="bg-[#000000] border border-[#F5E000]/20 px-3.5 py-2 rounded-lg flex items-center gap-2 shadow-lg backdrop-blur-md select-none text-[#FFFFFF] text-xs font-semibold whitespace-nowrap hover:border-[#F5E000] transition-colors"
+                  className="bg-[#000000] border border-[#F5E000]/20 px-3.5 py-2 rounded-lg flex items-center gap-2 shadow-[0_4px_16px_rgba(0,0,0,0.5)] backdrop-blur-md select-none text-[#FFFFFF] text-xs font-semibold whitespace-nowrap hover:border-[#F5E000] transition-colors"
                 >
                   <span className="w-5 h-5 rounded bg-[#F5E000] flex items-center justify-center text-[#000000]">
                     <IconComponent className="w-3.5 h-3.5" />
@@ -316,19 +358,17 @@ export default function Hero() {
                   stiffness: 260,
                   damping: 20
                 }}
-                className="absolute block md:hidden"
+                className="absolute block md:hidden z-20"
               >
                 {/* Floating ambient animation */}
                 <motion.div
-                  animate={{
-                    y: [0, -4, 0],
-                  }}
-                  transition={{
+                  animate={shouldReduceMotion ? { y: 0 } : { y: [0, -4, 0] }}
+                  transition={shouldReduceMotion ? { duration: 0 } : {
                     duration: chip.speed,
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
-                  className="bg-[#000000] border border-[#F5E000]/20 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 shadow-lg backdrop-blur-md select-none text-[#FFFFFF] text-[10px] font-semibold whitespace-nowrap"
+                  className="bg-[#000000] border border-[#F5E000]/20 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 shadow-[0_4px_16px_rgba(0,0,0,0.5)] backdrop-blur-md select-none text-[#FFFFFF] text-[10px] font-semibold whitespace-nowrap"
                 >
                   <span className="w-4 h-4 rounded bg-[#F5E000] flex items-center justify-center text-[#000000]">
                     <IconComponent className="w-3 h-3" />
