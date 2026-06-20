@@ -24,7 +24,18 @@ function GiftTile({ name, description, message, className = "", aspectClass, img
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       whileHover="hover"
-      className={`relative overflow-hidden rounded-2xl border border-[#F5E000]/20 hover:border-[#F5E000] bg-[#000000] group cursor-pointer transition-colors duration-300 ${aspectClass} ${className}`}
+      whileTap={{ scale: 0.98 }}
+      onClick={() => {
+        window.open(getWhatsAppLink(message), "_blank", "noopener,noreferrer");
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          window.open(getWhatsAppLink(message), "_blank", "noopener,noreferrer");
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      className={`relative overflow-hidden rounded-2xl border border-[#F5E000]/20 hover:border-[#F5E000] bg-[#000000] group cursor-pointer transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#F5E000] ${aspectClass} ${className}`}
     >
       {/* Background Graphic Mockup Image */}
       <motion.div
@@ -32,7 +43,7 @@ function GiftTile({ name, description, message, className = "", aspectClass, img
           hover: { scale: 1.05 }
         }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className="absolute inset-0 w-full h-full z-0"
+        className="absolute inset-0 w-full h-full z-0 animate-none"
       >
         <Image
           src={imgSrc}
@@ -44,36 +55,23 @@ function GiftTile({ name, description, message, className = "", aspectClass, img
         />
       </motion.div>
 
-      {/* Dark Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/60 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300 pointer-events-none z-10" />
+      {/* Dark Overlay gradient - always visible on mobile, hover-only on desktop */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/70 to-transparent opacity-90 [@media(pointer:fine)]:opacity-60 [@media(pointer:fine)]:group-hover:opacity-90 transition-opacity duration-300 pointer-events-none z-10" />
 
       {/* Content */}
       <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 z-20">
         <h3 className="font-display text-2xl md:text-3xl uppercase tracking-wider text-[#FFFFFF] group-hover:text-[#F5E000] transition-colors mb-2">
           {name}
         </h3>
-        <p className="font-body text-xs md:text-sm text-[#FFFFFF]/85 leading-relaxed mb-4 max-w-[420px] opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+        <p className="font-body text-xs md:text-sm text-[#FFFFFF]/85 leading-relaxed mb-4 max-w-[420px] opacity-100 [@media(pointer:fine)]:opacity-0 [@media(pointer:fine)]:group-hover:opacity-100 transition-opacity duration-300">
           {description}
         </p>
-        <motion.div
-          variants={{
-            hover: { y: 0, opacity: 1 },
-            initial: { y: 20, opacity: 0 }
-          }}
-          initial="initial"
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="w-full md:w-auto"
-        >
-          <a
-            href={getWhatsAppLink(message)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#25D366] text-[#FFFFFF] font-body text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-md transition-opacity hover:opacity-95"
-          >
+        <div className="w-full md:w-auto opacity-100 translate-y-0 [@media(pointer:fine)]:opacity-0 [@media(pointer:fine)]:translate-y-4 [@media(pointer:fine)]:group-hover:opacity-100 [@media(pointer:fine)]:group-hover:translate-y-0 transition-all duration-300">
+          <div className="inline-flex items-center gap-2 bg-[#25D366] text-[#FFFFFF] font-body text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-md">
             <Icons.MessageSquare className="w-4 h-4 fill-current text-[#FFFFFF]" />
             <span>Order this</span>
-          </a>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -149,7 +147,7 @@ export default function GiftsShowcase() {
             name={generalData.name}
             description={generalData.description}
             message={generalData.message}
-            aspectClass="aspect-video md:aspect-auto md:h-[260px] md:col-span-2 lg:col-span-2"
+            aspectClass="aspect-[4/3] md:aspect-auto md:h-[260px] md:col-span-2 lg:col-span-2"
             imgSrc="/gallery/gifts/general-gifts.jpg"
           />
         </div>

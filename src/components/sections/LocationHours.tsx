@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { MapPin, Clock, Navigation, MessageSquare } from "lucide-react";
 import { motion, useInView } from "framer-motion";
-import { ADDRESS, MAPS_DIRECTIONS_URL, HOURS_FOOTNOTE, HOURS_WEEKDAYS } from "@/lib/constants";
+import { ADDRESS, MAPS_DIRECTIONS_URL, MAPS_EMBED_URL, HOURS_FOOTNOTE, HOURS_WEEKDAYS } from "@/lib/constants";
 import { getWhatsAppLink } from "@/lib/whatsapp";
 
 const DAYS_OF_WEEK = [
@@ -43,8 +43,6 @@ export default function LocationHours() {
     }
   }, []);
 
-  const mapEmbedSrc = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3799.8821957297926!2d83.26466987600742!3d17.7496739832047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a394347715f5d37%3A0xe51c4e7c7e972f7d!2sPR%20Gardens!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin";
-
   return (
     <section id="location" className="bg-[#000000] border-t border-[rgba(245,224,0,0.15)] py-20 md:py-32 relative text-[#FFFFFF] overflow-hidden">
       
@@ -62,7 +60,7 @@ export default function LocationHours() {
             className="w-full h-full"
           >
             <iframe
-              src={mapEmbedSrc}
+              src={MAPS_EMBED_URL}
               width="100%"
               height="100%"
               style={{ border: 0 }}

@@ -6,12 +6,19 @@ import { MessageSquare, Star, ArrowDown, Fingerprint, CreditCard, Image as Image
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { getWhatsAppLink } from "@/lib/whatsapp";
 
-// Floating chips config
-const FLOATING_CHIPS = [
+// Floating chips configurations
+const FLOATING_CHIPS_DESKTOP = [
   { name: "Aadhar", icon: Fingerprint, delay: 0.1, x: "-30%", y: "-35%", speed: 5 },
   { name: "PAN Card", icon: CreditCard, delay: 0.3, x: "40%", y: "-40%", speed: 6 },
   { name: "Frames", icon: ImageIcon, delay: 0.2, x: "-45%", y: "25%", speed: 5.5 },
   { name: "Mugs", icon: Coffee, delay: 0.4, x: "35%", y: "30%", speed: 6.5 }
+];
+
+const FLOATING_CHIPS_MOBILE = [
+  { name: "Aadhar", icon: Fingerprint, delay: 0.1, x: "-90px", y: "-95px", speed: 4 },
+  { name: "PAN Card", icon: CreditCard, delay: 0.3, x: "85px", y: "-100px", speed: 5 },
+  { name: "Frames", icon: ImageIcon, delay: 0.2, x: "-95px", y: "85px", speed: 4.5 },
+  { name: "Mugs", icon: Coffee, delay: 0.4, x: "80px", y: "90px", speed: 5.5 }
 ];
 
 export default function Hero() {
@@ -77,9 +84,9 @@ export default function Hero() {
       {/* Background Typographic Overlay - Yellow at 0.06 Opacity */}
       <motion.div
         style={{ y: bgTypoY }}
-        className="absolute inset-0 select-none flex items-center justify-center pointer-events-none z-0"
+        className="absolute inset-0 select-none flex items-center justify-center pointer-events-none z-0 w-full h-full overflow-hidden"
       >
-        <h2 className="font-display text-[26vw] leading-none text-[#F5E000] opacity-[0.06] -rotate-[6deg] tracking-tighter">
+        <h2 className="font-display text-[clamp(3rem,18vw,6.5rem)] md:text-[26vw] leading-none text-[#F5E000] opacity-[0.06] -rotate-[6deg] tracking-tighter text-center w-full">
           K2 VIZAG
         </h2>
       </motion.div>
@@ -233,8 +240,8 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Floating Orbiting Chips (Foreground Layer) */}
-          {FLOATING_CHIPS.map((chip, idx) => {
+          {/* Floating Orbiting Chips - Desktop View */}
+          {FLOATING_CHIPS_DESKTOP.map((chip, idx) => {
             const IconComponent = chip.icon;
             const chipX = idx % 2 === 0 ? pDepth2X : pDepth3X;
             const chipY = idx % 2 === 0 ? pDepth2Y : pDepth3Y;
@@ -258,7 +265,7 @@ export default function Hero() {
                   stiffness: 260,
                   damping: 20
                 }}
-                className="absolute"
+                className="absolute hidden md:block"
               >
                 {/* Floating ambient animation */}
                 <motion.div
@@ -274,6 +281,50 @@ export default function Hero() {
                 >
                   <span className="w-5 h-5 rounded bg-[#F5E000] flex items-center justify-center text-[#000000]">
                     <IconComponent className="w-3.5 h-3.5" />
+                  </span>
+                  <span>{chip.name}</span>
+                </motion.div>
+              </motion.div>
+            );
+          })}
+
+          {/* Floating Orbiting Chips - Mobile View */}
+          {FLOATING_CHIPS_MOBILE.map((chip) => {
+            const IconComponent = chip.icon;
+
+            return (
+              <motion.div
+                key={chip.name}
+                style={{
+                  left: "50%",
+                  top: "50%",
+                  marginLeft: chip.x,
+                  marginTop: chip.y,
+                }}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{
+                  delay: 0.6 + chip.delay,
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20
+                }}
+                className="absolute block md:hidden"
+              >
+                {/* Floating ambient animation */}
+                <motion.div
+                  animate={{
+                    y: [0, -4, 0],
+                  }}
+                  transition={{
+                    duration: chip.speed,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="bg-[#000000] border border-[#F5E000]/20 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 shadow-lg backdrop-blur-md select-none text-[#FFFFFF] text-[10px] font-semibold whitespace-nowrap"
+                >
+                  <span className="w-4 h-4 rounded bg-[#F5E000] flex items-center justify-center text-[#000000]">
+                    <IconComponent className="w-3 h-3" />
                   </span>
                   <span>{chip.name}</span>
                 </motion.div>
