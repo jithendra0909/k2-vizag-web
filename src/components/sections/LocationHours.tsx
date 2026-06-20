@@ -52,23 +52,23 @@ export default function LocationHours() {
       <div className="max-w-[1440px] mx-auto px-6 lg:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         
         {/* Left Column: Google Maps Embed with Clip Path Animation */}
-        <div ref={mapRef} className="lg:col-span-6 w-full h-[350px] md:h-[450px] relative rounded-2xl overflow-hidden shadow-lg border border-[#F5E000]/20">
+        <div ref={mapRef} className="lg:col-span-6 w-full aspect-[4/3] md:aspect-[16/10] relative rounded-2xl overflow-hidden shadow-lg border border-[rgba(245,224,0,0.15)]">
           <motion.div
             initial={{ clipPath: "inset(0 100% 0 0)" }}
             animate={isMapInView ? { clipPath: "inset(0 0% 0 0)" } : { clipPath: "inset(0 100% 0 0)" }}
             transition={{ duration: 1.0, ease: [0.77, 0, 0.175, 1] }}
-            className="w-full h-full"
+            className="w-full h-full absolute inset-0"
           >
             <iframe
               src={MAPS_EMBED_URL}
               width="100%"
               height="100%"
               style={{ border: 0 }}
-              allowFullScreen={true}
+              allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="K2 Vizag Google Maps Location"
-              className="grayscale invert brightness-[0.85] contrast-[1.2]"
+              title="K2 Vizag Net Center & Customized Gifts — Location Map"
+              className="absolute inset-0"
             />
           </motion.div>
         </div>

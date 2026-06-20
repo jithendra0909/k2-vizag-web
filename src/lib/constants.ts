@@ -4,7 +4,7 @@ export const CATALOG_URL = "https://wa.me/c/919441756509";
 
 export const ADDRESS = "K2 Vizag Net Center & Customized Gifts, PR Gardens, 37-11-42, Industrial Estate, Pattabhi Reddy Thota, Madhavadhara, Visakhapatnam, Andhra Pradesh 530007";
 export const MAPS_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ADDRESS)}`;
-export const MAPS_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3803.6596954202357!2d83.27552307502446!3d17.755490983196628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a39695b28d578eb%3A0x67396652431cf94e!2sK2%20Vizag%20Net%20Center%20%26%20Customized%20Gifts!5e0!3m2!1sen!2sin!4v1718874400000!5m2!1sen!2sin";
+export const MAPS_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d953.3024362702375!2d83.26855387506224!3d17.74383559127783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1781942399250!5m2!1sen!2sin";
 
 export const HOURS_WEEKDAYS = { open: 9, close: 21 }; // 9 AM to 9 PM
 export const HOURS_DISPLAY = "Mon–Sun, 9:00 AM – 9:00 PM";
