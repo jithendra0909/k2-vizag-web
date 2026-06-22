@@ -31,7 +31,7 @@ export default function RootLayout({
     "@type": "LocalBusiness",
     "name": "K2 Vizag Net Center & Customized Gifts",
     "image": "/logo.png",
-    "telephone": "+919441756509",
+    "telephone": "+917989615350",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "PR Gardens, 37-11-42, Industrial Estate, Pattabhi Reddy Thota, Madhavadhara",

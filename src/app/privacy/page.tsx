@@ -71,7 +71,7 @@ export default function PrivacyPage() {
             <p className="text-[#FFFFFF]/45">
               Owner: Krishna <br />
               Address: PR Gardens, 37-11-42, Industrial Estate, Pattabhi Reddy Thota, Madhavadhara, Visakhapatnam, Andhra Pradesh 530007 <br />
-              WhatsApp / Call Support: +91 94417 56509
+              WhatsApp / Call Support: +91 79896 15350
             </p>
           </section>
         </div>

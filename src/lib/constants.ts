@@ -1,6 +1,6 @@
-export const PHONE_NUMBER = "919441756509";
-export const PHONE_NUMBER_DISPLAY = "+91 94417 56509";
-export const CATALOG_URL = "https://wa.me/c/919441756509";
+export const PHONE_NUMBER = "917989615350";
+export const PHONE_NUMBER_DISPLAY = "+91 79896 15350";
+export const CATALOG_URL = "https://wa.me/c/917989615350";
 
 export const ADDRESS = "K2 Vizag Net Center & Customized Gifts, PR Gardens, 37-11-42, Industrial Estate, Pattabhi Reddy Thota, Madhavadhara, Visakhapatnam, Andhra Pradesh 530007";
 export const MAPS_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ADDRESS)}`;
@@ -221,7 +221,7 @@ export const FAQS = [
   },
   {
     question: "Can I send my photo for a custom mug or pillow over WhatsApp?",
-    answer: "Absolutely! You can WhatsApp your high-quality photos directly to us at +91 94417 56509. We will design a preview, share it with you, and start printing once you approve."
+    answer: "Absolutely! You can WhatsApp your high-quality photos directly to us at +91 79896 15350. We will design a preview, share it with you, and start printing once you approve."
   },
   {
     question: "Do you offer same-day delivery for prints and documents?",
